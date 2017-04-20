@@ -12,7 +12,7 @@ yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
 files = [f for f in os.listdir('/home/erowz/varnishlog/SaveExtract/') if  len(f.split('-'))>1 and f.split('-')[1] == yesterday.strftime("%Y%m%d")]
 
 
-#files = ['ES.log-20170404']
+#files = ['IT.log-20170419']
 
 #files = ['PL.log-20170327']
 print files
@@ -39,12 +39,24 @@ for item in files:
                     tmp_date = tmp[1].split(' ')
                     if len(tmp_date) != 3:
                         #case if no tz
+			try:tmp[4] == str(float(tmp[4]))
+			except:tmp[4] = ''
+			try:tmp[3] == str(int(tmp[3]))
+			except:tmp[3] = ''
+			try:tmp[8] = str(int(tmp[8]))
+			except:tmp[8] = ''
                         tmp_date = tmp_date[0] + ' 00:00:00'
                         tmp[1] = tmp_date
                         result = ('|').join(tmp)+'\n'
                         fl.write(result)
                     elif len(tmp_date) == 3:
                         #case if tz
+			try:tmp[4] = str(float(tmp[4]))
+			except:tmp[4] = ''
+			try:tmp[3] = str(int(tmp[3]))
+			except:tmp[3] = ''
+			try:tmp[8] = str(int(tmp[8]))
+			except:tmp[8] = ''
                         tmp.append(tmp_date[2])
                         tmp_date = tmp_date[0] + ' 00:00:00'
                         tmp[1] = tmp_date

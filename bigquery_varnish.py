@@ -9,11 +9,11 @@ print files
 
 
 def bq_loader(f):
-    os.system('bq mk LogFilesv2_Dataset.'+f.split('_')[1].split('.')[0]+'_Varnish URl:string,Date:string,UserAgent:string,Status:string,TimeTakenVarnish:string,MissHit:string,Client_IP:string,Referer:string,Size:string,Timezone:string')
+    os.system('bq mk LogFilesv2_Dataset.'+f.split('_')[1].split('.')[0]+'_Varnish URl:string,Date:string,UserAgent:string,Status:integer,TimeTakenVarnish:float,MissHit:string,Client_IP:string,Referer:string,Size:integer,Timezone:string')
     #os.system("bq load --max_bad_records=10 --field_delimiter='|' --allow_quoted_newlines --allow_jagged_rows Logfilesv2_Dataset."+f.split('_')[1].split('.')[0]+"_Vanish ./"+f)
     s = subprocess.Popen(['bq','load','--skip_leading_rows=1','--max_bad_records=10','--field_delimiter=|','LogFilesv2_Dataset.'+f.split('_')[1].split('.')[0]+'_Varnish', './'+f], stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     stdout = s.stdout.readlines()
-#    print(stdout)
+    print(stdout)
     if stdout == ['\n', '\n']:
         print '\nSuccessfully loaded into '+f.split('_')[1].split('.')[0]+'_Varnish\n',
         return
