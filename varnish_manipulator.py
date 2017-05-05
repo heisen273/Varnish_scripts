@@ -2,7 +2,7 @@ import re
 import os
 import datetime
 import subprocess
-
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
 #files = [f.split('-') for f in os.listdir('.') if os.path.isfile(f)]
 
 
@@ -20,6 +20,8 @@ print('cleaning old Manipulated_ logs. . .\n')
 
 os.system('rm -rf /home/erowz/varnish_scripts/Manipulated_*')
 for item in files:
+	if 'old_US' in item:
+		continue
 	fl = open('/home/erowz/varnish_scripts/Manipulated_'+item+'.csv','w' )
         
         with open('/home/erowz/varnishlog/SaveExtract/'+item,'r') as f:

@@ -1,7 +1,7 @@
 import os
 import datetime
 import re
-
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
 yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
 files = [f for f in os.listdir('/home/erowz/varnishlog/SaveExtract/') if  f.split('-')[0] == 'US.log' and f.split('-')[1] == yesterday.strftime("%Y%m%d")]
 #files = ['test']
